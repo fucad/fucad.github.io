@@ -159,6 +159,7 @@
     {
       name: 'BLOCK PUZZLE',
       glyph: '▟▙',
+      icon: 'assets/icons/block_puzzle.png',
       blurb: 'Drag pieces onto the 8x8 board. Clear lines, chain combos. Endless Classic + a Quest map.',
       status: 'IN DEV',
       github: 'https://github.com/fucad/block_puzzle',
@@ -210,12 +211,22 @@
       ' title="' + esc(title) + '" aria-label="' + esc(title) + '">' + icon + '</a>';
   }
 
+  // Games without a real app icon yet fall back to the glyph placeholder.
+  function artwork(g) {
+    if (g.icon) {
+      return '<img src="' + esc(g.icon) + '" alt="' + esc(g.name) + ' app icon" loading="lazy" ' +
+        'style="width:100%;height:100%;object-fit:cover;display:block">';
+    }
+    return '<div style="font-family:\'Press Start 2P\',monospace;font-size:11px;color:rgba(127,227,240,.5);text-align:center;line-height:1.6">' +
+      esc(g.glyph) + '<br><span style="font-size:8px">ICON</span></div>';
+  }
+
   function renderGames() {
     el('game-grid').innerHTML = GAMES.map(function (g) {
       return '' +
       '<div style="background:linear-gradient(180deg,#0e1a20,#0a0d11);border:1px solid rgba(90,209,230,.2);border-radius:8px;overflow:hidden;display:flex;flex-direction:column">' +
         '<div style="position:relative;aspect-ratio:1/1;background:repeating-linear-gradient(45deg,#0d171d 0 10px,#0a1216 10px 20px);display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(90,209,230,.18)">' +
-          '<div style="font-family:\'Press Start 2P\',monospace;font-size:11px;color:rgba(127,227,240,.5);text-align:center;line-height:1.6">' + esc(g.glyph) + '<br><span style="font-size:8px">ICON</span></div>' +
+          artwork(g) +
           '<div style="position:absolute;top:9px;right:9px;font-family:\'JetBrains Mono\',monospace;font-size:9px;color:#04252c;background:#5ad1e6;padding:2px 6px;border-radius:2px">' + esc(g.status) + '</div>' +
         '</div>' +
         '<div style="padding:16px 15px 15px;display:flex;flex-direction:column;gap:12px;flex:1">' +
